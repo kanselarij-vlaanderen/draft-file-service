@@ -53,7 +53,7 @@ class UnauthorizedError < StandardError; end
 
 ###
 # POST /files
-# Upload a new file. Results in 2 new nfo:FileDataObject resources: one representing
+# Upload a new file. Results in 2 new subm:VoorlopigBestand resources: one representing
 # the uploaded file and one representing the persisted file on disk generated from the upload.
 #
 # Accepts multipart/form-data with a 'file' parameter containing the file to upload
@@ -90,7 +90,7 @@ post '/files/?' do
 
     query =  " INSERT DATA {"
     query += "   GRAPH <#{Mu::graph}> {"
-    query += "     #{Mu::sparql_escape_uri(upload_resource_uri)} a <#{NFO.FileDataObject}> ;"
+    query += "     #{Mu::sparql_escape_uri(upload_resource_uri)} a <http://mu.semte.ch/vocabularies/ext/submissions/VoorlopigBestand> ;"
     query += "         <#{NFO.fileName}> #{upload_resource_name.sparql_escape} ;"
     query += "         <#{MU_CORE.uuid}> #{upload_resource_uuid.sparql_escape} ;"
     query += "         <#{DC.format}> #{file_format.sparql_escape} ;"
@@ -98,7 +98,7 @@ post '/files/?' do
     query += "         <#{DBPEDIA.fileExtension}> #{file_extension.sparql_escape} ;"
     query += "         <#{DC.created}> #{now.sparql_escape} ;"
     query += "         <#{DC.modified}> #{now.sparql_escape} ."
-    query += "     #{Mu::sparql_escape_uri(file_resource_uri)} a <#{NFO.FileDataObject}> ;"
+    query += "     #{Mu::sparql_escape_uri(file_resource_uri)} a <http://mu.semte.ch/vocabularies/ext/submissions/VoorlopigBestand> ;"
     query += "         <#{NIE.dataSource}> #{Mu::sparql_escape_uri(upload_resource_uri)} ;"
     query += "         <#{NFO.fileName}> #{file_resource_name.sparql_escape} ;"
     query += "         <#{MU_CORE.uuid}> #{file_resource_uuid.sparql_escape} ;"
@@ -239,7 +239,7 @@ delete '/files/:id' do
   delete_query = "
     DELETE WHERE {
       GRAPH <#{Mu::graph}> {
-        <#{result.first[:uri]}> a <#{NFO.FileDataObject}> ;
+        <#{result.first[:uri]}> a <http://mu.semte.ch/vocabularies/ext/submissions/VoorlopigBestand> ;
           <#{NFO.fileName}> ?upload_name ;
           <#{MU_CORE.uuid}> ?upload_id ;
           <#{DC.format}> ?upload_format ;
@@ -252,7 +252,7 @@ delete '/files/:id' do
    ;
    DELETE WHERE {
     GRAPH <#{Mu::graph}> {
-      <#{result.first[:fileUrl]}> a <#{NFO.FileDataObject}> ;
+      <#{result.first[:fileUrl]}> a <http://mu.semte.ch/vocabularies/ext/submissions/VoorlopigBestand> ;
         <#{NIE.dataSource}> <#{result.first[:uri]}> ;
         <#{NFO.fileName}> ?fileName ;
         <#{MU_CORE.uuid}> ?id ;
