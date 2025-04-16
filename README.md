@@ -1,6 +1,10 @@
-# file-service
+# draft-file-service
 
-Microservice to upload and download files and store their file-specific metadata based on [mu-ruby-template](https://github.com/mu-semtech/mu-ruby-template).
+Custom adaptation of the Microservice `mu-file-service` to upload and download files and store their file-specific metadata based on [mu-ruby-template](https://github.com/mu-semtech/mu-ruby-template).
+
+In this adaptation a different `rdf:type` is used for files that are created. `nfo:FileDataObject` has been replaced with `subm:VoorlopigBestand`. Reasoning behind it is that these files have to be "approved" in internal processes before becoming a typical `nfo:FileDataObject`.
+
+Any further reference in this readme of "file" should be considered as "draft-file" going forward.
 
 ## Tutorials
 
